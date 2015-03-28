@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "description": "eggtimer: an open-source menstrual tracker",
     "engines": {
-        "node": "0.10.x"
+        "node": "0.12.x"
     },
     "dependencies": {
         "express": "4.12.3",
