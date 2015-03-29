@@ -13,7 +13,6 @@
         "gulp-minify-css": "^0.3.0",
         "gulp-rename": "^1.2.0",
         "gulp-replace-task": "^0.1.0",
-        "fs": "^1.2.0",
         "yargs": "^3.6.0"
     },
     "devDependencies": {
