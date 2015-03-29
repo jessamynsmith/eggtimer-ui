@@ -5,6 +5,9 @@ var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
+var replace = require('gulp-replace-task');
+var args = require('yargs').argv;
+var fs = require('fs');
 var sh = require('shelljs');
 
 var paths = {
@@ -47,4 +50,26 @@ gulp.task('git-check', function(done) {
     process.exit(1);
   }
   done();
+});
+
+gulp.task('constants', function () {
+  // Get the environment from the command line
+  var env = args.env || 'development';
+
+  // Read the settings from the right file
+  var filename = env + '.json';
+  var settings = JSON.parse(fs.readFileSync('./config/' + filename, 'utf8'));
+  gutil.log(settings);
+
+  // Replace each placeholder with the correct value for the variable.
+  gulp.src('config/constants.js')
+  .pipe(replace({
+    patterns: [
+      {
+        match: 'apiUrl',
+        replacement: settings.apiUrl
+      }
+    ]
+  }))
+  .pipe(gulp.dest('www/js/'));
 });
