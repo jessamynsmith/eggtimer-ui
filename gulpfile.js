@@ -53,6 +53,8 @@ gulp.task('git-check', function(done) {
 });
 
 gulp.task('constants', function () {
+  // Can't run this in production anyway, so probably just needs to do dev ip. Would be great to
+  // grab that from the local system
   // Get the environment from the command line
   var env = args.env || 'development';
 

@@ -1,9 +1,8 @@
-// eggtimer.constants is created dynamically by `gulp constants`
-angular.module('eggtimer.controllers', ['eggtimer.constants'])
+angular.module('eggtimer.controllers', [])
 
 .controller('CalendarCtrl', function($scope, $ionicPopup) {
   $scope.$on("$ionicView.loaded", function () {
-    initializeCalendar($ionicPopup, apiUrl);
+    initializeCalendar($ionicPopup, 'http://10.10.1.117:5000/');
   });
 })
 
