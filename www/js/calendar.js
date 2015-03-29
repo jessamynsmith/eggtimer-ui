@@ -117,74 +117,104 @@ doAjax = function(url, method, itemId, data) {
   });
 };
 
-editEvent = function(action, periodsUrl, periodFormUrl, itemId, itemDate) {
-  var method = 'POST';
+editEvent = function($ionicPopup, action, periodsUrl, periodFormUrl, itemId, itemDate) {
+  console.log('Editing event');
+
   var buttons = [];
   if (action === 'Update') {
-    method = 'PUT';
     buttons.push({
-      id: 'btn-delete',
-      label: 'Delete',
-      cssClass: 'btn-warning',
-      action: function(dialogRef) {
-        BootstrapDialog.confirm('Are you sure you want to delete this event?', function(result) {
-          if (result) {
-            doAjax(periodsUrl, 'DELETE', itemId, {});
-            dialogRef.close();
-          }
-        });
+      text: '<b>Delete</b>',
+      type: 'button-negative',
+      onTap: function(e) {
+        console.log('Deleted', res);
       }
     });
   }
+  buttons.push({ text: 'Cancel' });
   buttons.push({
-    id: 'btn-cancel',
-    label: 'Cancel',
-    cssClass: 'btn-cancel',
-    autospin: false,
-    action: function(dialogRef) {
-      dialogRef.close();
-    }
-  }, {
-    id: 'btn-ok',
-    label: action,
-    cssClass: 'btn-primary',
-    action: function(dialogRef) {
-      var data = $("#id_period_form").serializeJSON();
-      // drf doesn't recognize 'on'
-      data.first_day = data.first_day == 'on';
-      doAjax(periodsUrl, method, itemId, data);
-      dialogRef.close();
+    text: '<b>' + action + '</b>',
+    type: 'button-positive',
+    onTap: function(e) {
+      console.log(action + 'ed', res);
     }
   });
-  BootstrapDialog.show({
+
+  var flowPopup = $ionicPopup.show({
+    template: '',
     title: action + ' event',
-    message: function(dialog) {
-      var message = '';
-      if (itemId) {
-        periodFormUrl += itemId + '/';
-      }
-      if (itemDate) {
-        periodFormUrl += '?timestamp=' + itemDate.format();
-      }
-      $.ajax({
-        url: periodFormUrl,
-        dataType: 'html',
-        async: false,
-        success: function(doc) {
-          message = $('<div></div>').append($(doc));
-        }
-      });
-      return message;
-    },
-    onshown: function(dialog) {
-      addFormStyles();
-    },
-    closable: true,
     buttons: buttons
   });
+  flowPopup.then(function(res) {
+    console.log('Edited!', res);
+  });
+
+  //var method = 'POST';
+  //var buttons = [];
+  //if (action === 'Update') {
+  //  method = 'PUT';
+  //  buttons.push({
+  //    id: 'btn-delete',
+  //    label: 'Delete',
+  //    cssClass: 'btn-warning',
+  //    action: function(dialogRef) {
+  //      BootstrapDialog.confirm('Are you sure you want to delete this event?', function(result) {
+  //        if (result) {
+  //          doAjax(periodsUrl, 'DELETE', itemId, {});
+  //          dialogRef.close();
+  //        }
+  //      });
+  //    }
+  //  });
+  //}
+  //buttons.push({
+  //  id: 'btn-cancel',
+  //  label: 'Cancel',
+  //  cssClass: 'btn-cancel',
+  //  autospin: false,
+  //  action: function(dialogRef) {
+  //    dialogRef.close();
+  //  }
+  //}, {
+  //  id: 'btn-ok',
+  //  label: action,
+  //  cssClass: 'btn-primary',
+  //  action: function(dialogRef) {
+  //    var data = $("#id_period_form").serializeJSON();
+  //    // drf doesn't recognize 'on'
+  //    data.first_day = data.first_day == 'on';
+  //    doAjax(periodsUrl, method, itemId, data);
+  //    dialogRef.close();
+  //  }
+  //});
+  //BootstrapDialog.show({
+  //  title: action + ' event',
+  //  message: function(dialog) {
+  //    var message = '';
+  //    if (itemId) {
+  //      periodFormUrl += itemId + '/';
+  //    }
+  //    if (itemDate) {
+  //      periodFormUrl += '?timestamp=' + itemDate.format();
+  //    }
+  //    $.ajax({
+  //      url: periodFormUrl,
+  //      dataType: 'html',
+  //      async: false,
+  //      success: function(doc) {
+  //        message = $('<div></div>').append($(doc));
+  //      }
+  //    });
+  //    return message;
+  //  },
+  //  onshown: function(dialog) {
+  //    addFormStyles();
+  //  },
+  //  closable: true,
+  //  buttons: buttons
+  //});
 };
 
-var initializeCalendar = function(serverUrl) {
+var initializeCalendar = function($ionicPopup, serverUrl) {
   var periodsUrl = serverUrl + 'api/v2/periods/',
     statisticsUrl = serverUrl + 'api/v2/statistics/1/',
     periodFormUrl = serverUrl + 'period_form/';
@@ -232,11 +262,11 @@ var initializeCalendar = function(serverUrl) {
         // If the entry is for the current day, populate time
         dayMoment = now;
       }
-      editEvent('Add', periodsUrl, periodFormUrl, null, dayMoment);
+      editEvent($ionicPopup, 'Add', periodsUrl, periodFormUrl, null, dayMoment);
     },
     eventClick: function(event, jsEvent, view) {
       // Right now, periods do not have a type. This will change when I add spotting.
-      editEvent('Update', periodsUrl, periodFormUrl, event.itemId, event.start);
+      editEvent($ionicPopup, 'Update', periodsUrl, periodFormUrl, event.itemId, event.start);
     }
   });
 };

@@ -1,8 +1,8 @@
 angular.module('starter.controllers', [])
 
-.controller('CalendarCtrl', function($scope) {
+.controller('CalendarCtrl', function($scope, $ionicPopup) {
   $scope.$on("$ionicView.loaded", function () {
-    initializeCalendar('http://eggtimer.herokuapp.com/');
+    initializeCalendar($ionicPopup, 'http://eggtimer.herokuapp.com/');
   });
 })
 
