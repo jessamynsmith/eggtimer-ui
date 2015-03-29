@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('eggtimer.controllers', [])
 
 .controller('CalendarCtrl', function($scope, $ionicPopup) {
   $scope.$on("$ionicView.loaded", function () {
