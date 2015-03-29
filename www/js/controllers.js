@@ -1,6 +1,10 @@
 angular.module('starter.controllers', [])
 
-.controller('CalendarCtrl', function($scope) {})
+.controller('CalendarCtrl', function($scope) {
+  $scope.$on("$ionicView.loaded", function () {
+    initializeCalendar('http://eggtimer.herokuapp.com/');
+  });
+})
 
 .controller('StatisticsCtrl', function($scope, Chats) {
   $scope.chats = Chats.all();
