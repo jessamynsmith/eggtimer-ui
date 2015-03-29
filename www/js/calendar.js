@@ -188,8 +188,13 @@ var initializeCalendar = function(serverUrl) {
   var periodsUrl = serverUrl + 'api/v2/periods/',
     statisticsUrl = serverUrl + 'api/v2/statistics/1/',
     periodFormUrl = serverUrl + 'period_form/';
+  var content = $('body').find('ion-content').first(),
+    header = $('body').find('ion-header-bar').first(),
+    tabBar = $('.tab-nav'),
+    calendarToolbarHeight = 40;
   $('#id_calendar').fullCalendar({
     defaultDate: getDefaultDate(moment, window.location.search),
+    aspectRatio: (content.innerWidth()) / (content.innerHeight() - header.outerHeight() - tabBar.outerHeight() - calendarToolbarHeight),
     events: function(start, end, timezone, callback) {
       var startDate = formatMomentDate(start);
       var endDate = formatMomentDate(end);

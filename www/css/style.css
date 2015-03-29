@@ -5,3 +5,8 @@
     padding: 2px;
     color: grey;
 }
+
+.fc-toolbar {
+    margin-bottom: 2px;
+    text-align: center;
+}
