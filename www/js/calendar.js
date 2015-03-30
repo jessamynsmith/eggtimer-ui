@@ -126,7 +126,7 @@ editEvent = function($ionicPopup, action, periodsUrl, periodFormUrl, itemId, ite
       text: '<b>Delete</b>',
       type: 'button-negative',
       onTap: function(e) {
-        console.log('Deleted', res);
+        console.log('Deleted', e);
       }
     });
   }
@@ -135,7 +135,7 @@ editEvent = function($ionicPopup, action, periodsUrl, periodFormUrl, itemId, ite
     text: '<b>' + action + '</b>',
     type: 'button-positive',
     onTap: function(e) {
-      console.log(action + 'ed', res);
+      console.log(action + 'ed', e);
     }
   });
 

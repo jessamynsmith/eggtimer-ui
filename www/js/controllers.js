@@ -1,8 +1,8 @@
-angular.module('eggtimer.controllers', [])
+angular.module('eggtimer.controllers', ['eggtimer.constants'])
 
-.controller('CalendarCtrl', function($scope, $ionicPopup) {
+.controller('CalendarCtrl', function($scope, $ionicPopup, apiUrl) {
   $scope.$on("$ionicView.loaded", function () {
-    initializeCalendar($ionicPopup, 'http://10.10.1.117:5000/');
+    initializeCalendar($ionicPopup, apiUrl);
   });
 })
 
