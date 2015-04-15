@@ -1,11 +1,13 @@
 eggtimer
 ==============
 
-Open-source tracker for menstrual periods.
+Ionic app to track menstrual periods.
 
 
 Development
 -----------
+
+To be added.
 
 
 Thank you to:
