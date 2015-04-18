@@ -7,7 +7,9 @@ Ionic app to track menstrual periods.
 Development
 -----------
 
-To be added.
+This project is a work in progress, and very rough at the moment. I am currently in the process of
+porting over UI functionality from:
+https://github.com/jessamynsmith/eggtimer-server
 
 
 Thank you to:
