@@ -20,6 +20,10 @@
     "gulp-util": "^2.2.14",
     "shelljs": "^0.3.0"
   },
+  "scripts": {
+    "preinstall": "npm install -g cordova ionic gulp bower",
+    "postinstall": "bower install"
+  },
   "repository": {
     "type": "git",
     "url": ""
