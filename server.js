@@ -1,5 +1,9 @@
-var express = require('express'),
+var sslRedirect = require('heroku-ssl-redirect'),
+    express = require('express'),
     app = express();
+
+// enable ssl redirect
+app.use(sslRedirect());
 
 app.use(express.static('www'));
 
