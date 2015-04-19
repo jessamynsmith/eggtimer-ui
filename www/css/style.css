@@ -20,7 +20,7 @@ input[type="email"], input[type="password"] {
 }
 
 .form-error {
-    padding: 4px 12px;
+    padding: 4px 0px;
     color: red;
 }
 
