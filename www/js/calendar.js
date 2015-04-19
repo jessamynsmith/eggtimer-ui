@@ -97,22 +97,23 @@ getDefaultDate = function(moment, queryString) {
   return defaultDate;
 };
 
-doAjax = function(url, method, itemId, data) {
+doAjax = function(url, method, itemId, data, callback) {
   console.log("Calling " + method + " on item " + itemId + " ...");
   if (itemId !== null) {
     url += itemId + '/';
   }
+  // TODO need stringify on form data? e.g. JSON.stringify(data)
   $.ajax({
     url: url,
     contentType: 'application/json',
     type: method,
-    data: JSON.stringify(data),
+    data: data,
     beforeSend: function(jqXHR, settings) {
-      jqXHR.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+      jqXHR.setRequestHeader("Authorization", 'Token ' + window.localStorage.token);
     },
     success: function(data, textStatus, jqXHR) {
       console.log(method + " on " + itemId + " succeeded");
-      $('#id_calendar').fullCalendar('refetchEvents');
+      callback(data, textStatus, jqXHR);
     }
   });
 };
@@ -159,7 +160,7 @@ editEvent = function($ionicPopup, action, periodsUrl, periodFormUrl, itemId, ite
   //    action: function(dialogRef) {
   //      BootstrapDialog.confirm('Are you sure you want to delete this event?', function(result) {
   //        if (result) {
-  //          doAjax(periodsUrl, 'DELETE', itemId, {});
+  //          doAjax(periodsUrl, 'DELETE', itemId, {}, function() {$('#id_calendar').fullCalendar('refetchEvents');}
   //          dialogRef.close();
   //        }
   //      });
@@ -182,7 +183,7 @@ editEvent = function($ionicPopup, action, periodsUrl, periodFormUrl, itemId, ite
   //    var data = $("#id_period_form").serializeJSON();
   //    // drf doesn't recognize 'on'
   //    data.first_day = data.first_day == 'on';
-  //    doAjax(periodsUrl, method, itemId, data);
+  //    doAjax(periodsUrl, method, itemId, data, function() {$('#id_calendar').fullCalendar('refetchEvents'););
   //    dialogRef.close();
   //  }
   //});
@@ -216,7 +217,7 @@ editEvent = function($ionicPopup, action, periodsUrl, periodFormUrl, itemId, ite
 
 var initializeCalendar = function($ionicPopup, serverUrl) {
   var periodsUrl = serverUrl + 'api/v2/periods/',
-    statisticsUrl = serverUrl + 'api/v2/statistics/1/',
+    statisticsUrl = serverUrl + 'api/v2/statistics/',
     periodFormUrl = serverUrl + 'period_form/';
   var content = $('body').find('ion-content').first(),
     header = $('body').find('ion-header-bar').first(),
@@ -228,32 +229,20 @@ var initializeCalendar = function($ionicPopup, serverUrl) {
     events: function(start, end, timezone, callback) {
       var startDate = formatMomentDate(start);
       var endDate = formatMomentDate(end);
-      $.ajax({
-        url: periodsUrl,
-        dataType: 'json',
-        data: {
-          min_timestamp: startDate,
-          max_timestamp: endDate
-        },
-        success: function(periodData) {
+      doAjax(periodsUrl, 'GET', null, {min_timestamp: startDate, max_timestamp: endDate},
+        function(periodData) {
           var newUrl = window.location.protocol + "//" + window.location.host +
-            window.location.pathname + "?start=" + startDate + "&end=" + endDate;
+            window.location.pathname + "#/tab/calendar?start=" + startDate + "&end=" + endDate;
           window.history.pushState({path: newUrl}, '', newUrl);
-          $.ajax({
-            url: statisticsUrl,
-            dataType: 'json',
-            data: {
-              min_timestamp: startDate
-            },
-            success: function(statisticsData) {
-              var events = makeEvents(moment, periodData.concat(statisticsData.predicted_events));
-              addDayCounts(events.periodStartDates, moment(statisticsData.first_date),
-                statisticsData.first_day);
-              callback(events.events);
-            }
-          });
-        }
-      });
+          doAjax(statisticsUrl, 'GET', null, {min_timestamp: startDate},
+                function(statisticsData) {
+                  var events = makeEvents(moment, periodData.concat(statisticsData.predicted_events));
+                  addDayCounts(events.periodStartDates, moment(statisticsData.first_date),
+                    statisticsData.first_day);
+                  callback(events.events);
+                }
+          );
+        });
     },
     dayClick: function(date, jsEvent, view) {
       var dayMoment = moment(date);
@@ -265,7 +254,6 @@ var initializeCalendar = function($ionicPopup, serverUrl) {
       editEvent($ionicPopup, 'Add', periodsUrl, periodFormUrl, null, dayMoment);
     },
     eventClick: function(event, jsEvent, view) {
-      // Right now, periods do not have a type. This will change when I add spotting.
       editEvent($ionicPopup, 'Update', periodsUrl, periodFormUrl, event.itemId, event.start);
     }
   });
