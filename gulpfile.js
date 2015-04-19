@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
-var bower = require('bower');
 var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
@@ -32,12 +31,13 @@ gulp.task('watch', function() {
   gulp.watch(paths.sass, ['sass']);
 });
 
-gulp.task('install', ['git-check'], function() {
-  return bower.commands.install()
-    .on('log', function(data) {
-      gutil.log('bower', gutil.colors.cyan(data.id), data.message);
-    });
-});
+// TODO do I need this at all? It was causing issues on heroku due to bower
+//gulp.task('install', ['git-check'], function() {
+//  return bower.commands.install()
+//    .on('log', function(data) {
+//      gutil.log('bower', gutil.colors.cyan(data.id), data.message);
+//    });
+//});
 
 gulp.task('git-check', function(done) {
   if (!sh.which('git')) {
@@ -53,8 +53,6 @@ gulp.task('git-check', function(done) {
 });
 
 gulp.task('constants', function () {
-  // Can't run this in production anyway, so probably just needs to do dev ip. Would be great to
-  // grab that from the local system
   // Get the environment from the command line
   var env = args.env || 'development';
 
