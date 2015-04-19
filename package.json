@@ -13,18 +13,18 @@
     "gulp-rename": "^1.2.0",
     "gulp-replace-task": "^0.1.0",
     "gulp-sass": "^1.3.3",
-    "gulp-util": "^3.0.4",
     "heroku-ssl-redirect": "0.0.3",
     "yargs": "^3.6.0"
   },
   "devDependencies": {
     "bower": "^1.3.3",
+    "gulp-util": "^3.0.4",
     "jshint": "^2.7.0",
     "shelljs": "^0.3.0"
   },
   "scripts": {
     "preinstall": "npm install -g cordova ionic gulp gulp-util bower",
-    "postinstall": "bower install && gulp constants"
+    "postinstall": "bower install"
   },
   "repository": {
     "type": "git",
