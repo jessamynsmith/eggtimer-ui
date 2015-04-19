@@ -24,7 +24,7 @@
   },
   "scripts": {
     "preinstall": "npm install -g cordova ionic gulp bower",
-    "postinstall": "bower install"
+    "postinstall": "bower install && gulp constants --env=production"
   },
   "repository": {
     "type": "git",
