@@ -7,7 +7,7 @@
 // 'eggtimer.controllers' is found in controllers.js
 angular.module('eggtimer', ['ionic', 'eggtimer.controllers', 'eggtimer.services'])
 
-  .run(function($ionicPlatform) {
+  .run(function($ionicPlatform, $rootScope, $state) {
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -17,6 +17,13 @@ angular.module('eggtimer', ['ionic', 'eggtimer.controllers', 'eggtimer.services'
       if (window.StatusBar) {
         // org.apache.cordova.statusbar required
         StatusBar.styleDefault();
+      }
+    });
+
+    $rootScope.$on('$stateChangeError',function(e, to, toP, from, fromP, error){
+      e.preventDefault();
+      if (error === 'not_authenticated') {
+        $state.go('login')
       }
     });
   })
@@ -29,11 +36,22 @@ angular.module('eggtimer', ['ionic', 'eggtimer.controllers', 'eggtimer.services'
     // Each state's controller can be found in controllers.js
     $stateProvider
 
+      .state('login',{
+        url: "/login",
+        templateUrl: "templates/login.html",
+        controller: 'LoginCtrl'
+      })
+
       // setup an abstract state for the tabs directive
       .state('tab', {
         url: "/tab",
         abstract: true,
-        templateUrl: "templates/tabs.html"
+        templateUrl: "templates/tabs.html",
+        resolve: {
+          user: ['User', function(User) {
+            return User.checkAuthenticated();
+          }]
+        }
       })
 
       // Each tab has its own nav history stack:

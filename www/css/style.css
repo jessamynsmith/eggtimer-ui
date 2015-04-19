@@ -1,3 +1,28 @@
+form {
+    margin-top: 10px;
+}
+
+form div {
+    padding-bottom: 12px;
+}
+
+label {
+    font-weight: bold;
+    line-height: 46px;
+}
+
+input[type="email"], input[type="password"] {
+    display: inline-block;
+    border: 1px #C0C0C0 solid;
+    height: 46px;
+    width: 220px;
+}
+
+.form-error {
+    padding: 4px 12px;
+    color: red;
+}
+
 .nav-bar-title {
     width: 100%;
 }
