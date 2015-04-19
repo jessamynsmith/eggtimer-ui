@@ -75,15 +75,6 @@ angular.module('eggtimer', ['ionic', 'eggtimer.controllers', 'eggtimer.services'
           }
         }
       })
-      .state('tab.chat-detail', {
-        url: '/statistics/:chatId',
-        views: {
-          'tab-statistics': {
-            templateUrl: 'templates/chat-detail.html',
-            controller: 'ChatDetailCtrl'
-          }
-        }
-      })
 
       .state('tab.account', {
         url: '/account',
