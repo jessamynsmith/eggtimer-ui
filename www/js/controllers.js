@@ -1,12 +1,18 @@
 angular.module('eggtimer.controllers', ['ngMessages', 'eggtimer.constants'])
 
-  .controller('LoginCtrl', function($scope, User, $state) {
+  .controller('LoginCtrl', function($scope, $timeout, User, $state) {
     $scope.params = {};
 
     $scope.doLogin = function(email, password) {
       if (!window.localStorage.token) {
         User.login(email, password)
           .then(function() {
+            if (!window.localStorage.token) {
+              $scope.showError = true;
+              $timeout(function() {
+                $scope.showError = false;
+              }, 5000);
+            }
             $state.go('tab.calendar');
           });
       }

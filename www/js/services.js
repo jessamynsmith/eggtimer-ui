@@ -12,13 +12,9 @@ angular.module('eggtimer.services', ['eggtimer.constants'])
       },
       login: function(email, password) {
         var handleSuccess = function(result) {
-          console.log(result.data.token);
           window.localStorage.token = result.data.token;
         };
-        var handleError = function() {
-          console.log("authenticated failed");
-          // TODO show error on form
-        };
+        var handleError = function() {};
         var request = $http({
           method: "post",
           url: apiUrl + 'api/v2/authenticate/',

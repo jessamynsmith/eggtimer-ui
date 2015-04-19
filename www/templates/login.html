@@ -8,6 +8,14 @@
       <ion-list>
         <div class="row">
           <div class="col-25"></div>
+          <div class="col-75 form-error">
+            <div ng-show="showError" class="fadein fadeout">
+              Your login information was invalid.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-25"></div>
           <div class="col-75 form-error" ng-messages="loginForm.email.$error">
             <div ng-message="required">Please enter your email.</div>
             <div ng-message="email">Please enter a valid email address.</div>
