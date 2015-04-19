@@ -20,14 +20,14 @@ angular.module('eggtimer.services', ['eggtimer.constants'])
           // TODO show error on form
         };
         var request = $http({
-            method: "post",
-            url: apiUrl + 'api/v2/authenticate/',
-            data: {
-              email: email,
-              password: password
-            }
+          method: "post",
+          url: apiUrl + 'api/v2/authenticate/',
+          data: {
+            email: email,
+            password: password
+          }
         });
-        return( request.then( handleSuccess, handleError ) );
+        return ( request.then(handleSuccess, handleError) );
       }
     };
   })

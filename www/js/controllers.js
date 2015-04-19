@@ -10,7 +10,7 @@ angular.module('eggtimer.controllers', ['ngMessages', 'eggtimer.constants'])
             $state.go('tab.calendar');
           });
       }
-    }
+    };
   })
 
   .controller('CalendarCtrl', function($scope, $ionicPopup, apiUrl) {
@@ -23,7 +23,7 @@ angular.module('eggtimer.controllers', ['ngMessages', 'eggtimer.constants'])
     $scope.chats = Chats.all();
     $scope.remove = function(chat) {
       Chats.remove(chat);
-    }
+    };
   })
 
   .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {

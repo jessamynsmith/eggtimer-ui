@@ -131,7 +131,7 @@ editEvent = function($ionicPopup, action, periodsUrl, periodFormUrl, itemId, ite
       }
     });
   }
-  buttons.push({ text: 'Cancel' });
+  buttons.push({text: 'Cancel'});
   buttons.push({
     text: '<b>' + action + '</b>',
     type: 'button-positive',
@@ -235,12 +235,12 @@ var initializeCalendar = function($ionicPopup, serverUrl) {
             window.location.pathname + "#/tab/calendar?start=" + startDate + "&end=" + endDate;
           window.history.pushState({path: newUrl}, '', newUrl);
           doAjax(statisticsUrl, 'GET', null, {min_timestamp: startDate},
-                function(statisticsData) {
-                  var events = makeEvents(moment, periodData.concat(statisticsData.predicted_events));
-                  addDayCounts(events.periodStartDates, moment(statisticsData.first_date),
-                    statisticsData.first_day);
-                  callback(events.events);
-                }
+            function(statisticsData) {
+              var events = makeEvents(moment, periodData.concat(statisticsData.predicted_events));
+              addDayCounts(events.periodStartDates, moment(statisticsData.first_date),
+                statisticsData.first_day);
+              callback(events.events);
+            }
           );
         });
     },

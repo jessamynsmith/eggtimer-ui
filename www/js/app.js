@@ -20,10 +20,10 @@ angular.module('eggtimer', ['ionic', 'eggtimer.controllers', 'eggtimer.services'
       }
     });
 
-    $rootScope.$on('$stateChangeError',function(e, to, toP, from, fromP, error){
+    $rootScope.$on('$stateChangeError', function(e, to, toP, from, fromP, error) {
       e.preventDefault();
       if (error === 'not_authenticated') {
-        $state.go('login')
+        $state.go('login');
       }
     });
   })
@@ -36,7 +36,7 @@ angular.module('eggtimer', ['ionic', 'eggtimer.controllers', 'eggtimer.services'
     // Each state's controller can be found in controllers.js
     $stateProvider
 
-      .state('login',{
+      .state('login', {
         url: "/login",
         templateUrl: "templates/login.html",
         controller: 'LoginCtrl'
