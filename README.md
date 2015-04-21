@@ -1,6 +1,9 @@
 eggtimer
 ==============
 
+[![Build Status](https://circleci.com/gh/jessamynsmith/eggtimer-ui.svg?style=shield)](https://circleci.com/gh/jessamynsmith/eggtimer-ui)
+[![Coverage Status](https://coveralls.io/repos/jessamynsmith/eggtimer-ui/badge.svg?branch=master)](https://coveralls.io/r/jessamynsmith/eggtimer-ui?branch=master)
+
 Ionic app to track menstrual periods.
 
 
