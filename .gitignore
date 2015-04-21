@@ -7,3 +7,4 @@ platforms/
 plugins/
 www/lib/
 www/js/constants.js
+*coverage*
