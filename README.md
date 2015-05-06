@@ -16,14 +16,21 @@ https://github.com/jessamynsmith/eggtimer-server
 
 Getting started:
  - npm install
- - ionic platform add browser android ios
  - ionic browser add crosswalk
+ - ionic platform add browser android ios
  - cordova plugin add https://github.com/apache/cordova-plugin-whitelist.git
+
+To run app:
+ node server.js
+ ionic run android
 
 Remote debugging Android:
  - In developer options, enable USB debugging
  - On computer, in chrome, go to chrome://inspect/
  - On phone, allow debugging
+
+Create apks:
+ ./create_apks.sh
 
 
 Thank you to:
