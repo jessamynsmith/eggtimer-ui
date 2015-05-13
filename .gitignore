@@ -6,6 +6,4 @@ node_modules/
 platforms/
 plugins/
 www/lib/
-www/js/constants.js
-www/js/credentials.js
 *coverage*
