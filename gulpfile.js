@@ -1,6 +1,5 @@
 var gulp = require('gulp');
 var gutil = require('gulp-util');
-var concat = require('gulp-concat');
 var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
@@ -12,7 +11,7 @@ var paths = {
   sass: ['./scss/**/*.scss']
 };
 
-gulp.task('default', ['sass']);
+gulp.task('default', ['sass', 'credentials']);
 
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
@@ -30,27 +29,6 @@ gulp.task('watch', function() {
   gulp.watch(paths.sass, ['sass']);
 });
 
-// TODO do I need this at all? It was causing issues on heroku due to bower
-//gulp.task('install', ['git-check'], function() {
-//  return bower.commands.install()
-//    .on('log', function(data) {
-//      gutil.log('bower', gutil.colors.cyan(data.id), data.message);
-//    });
-//});
-
-//gulp.task('git-check', function(done) {
-//  if (!sh.which('git')) {
-//    console.log(
-//      '  ' + gutil.colors.red('Git is not installed.'),
-//      '\n  Git, the version control system, is required to download Ionic.',
-//      '\n  Download git here:', gutil.colors.cyan('http://git-scm.com/downloads') + '.',
-//      '\n  Once git is installed, run \'' + gutil.colors.cyan('gulp install') + '\' again.'
-//    );
-//    process.exit(1);
-//  }
-//  done();
-//});
-
 gulp.task('constants', function () {
   // Get the environment from the command line
   var env = args.env || 'development';
@@ -67,6 +45,24 @@ gulp.task('constants', function () {
       {
         match: 'apiUrl',
         replacement: settings.apiUrl
+      }
+    ]
+  }))
+  .pipe(gulp.dest('www/js/'));
+});
+
+gulp.task('credentials', function () {
+  // Replace each placeholder with the correct value for the variable.
+  gulp.src('config/credentials.js')
+  .pipe(replace({
+    patterns: [
+      {
+        match: 'parseAppId',
+        replacement: process.env.EGGTIMER_PARSE_APP_ID
+      },
+      {
+        match: 'parseClientKey',
+        replacement: process.env.EGGTIMER_PARSE_CLIENT_KEY
       }
     ]
   }))

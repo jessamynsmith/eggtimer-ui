@@ -5,6 +5,7 @@
 #keytool -genkey -v -keystore $KEYSTORE_HOME/taotrack-release-key.keystore -alias taotrack -keyalg RSA -keysize 2048 -validity 10000
 
 
+gulp credentials
 gulp constants --env=production
 
 cordova build --release android

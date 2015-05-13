@@ -5,9 +5,10 @@
 // the 2nd parameter is an array of 'requires'
 // 'eggtimer.services' is found in services.js
 // 'eggtimer.controllers' is found in controllers.js
-angular.module('eggtimer', ['ionic', 'eggtimer.controllers', 'eggtimer.services'])
+angular.module('eggtimer', ['ionic', 'eggtimer.controllers', 'eggtimer.services',
+  'eggtimer.credentials'])
 
-  .run(function($ionicPlatform, $rootScope, $state) {
+  .run(function($ionicPlatform, $rootScope, $state, parseAppId, parseClientKey) {
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -19,6 +20,32 @@ angular.module('eggtimer', ['ionic', 'eggtimer.controllers', 'eggtimer.services'
         StatusBar.styleDefault();
       }
     });
+
+    // parsePlugin is not available on all platforms
+    if (window.parsePlugin) {
+      window.parsePlugin.initialize(parseAppId, parseClientKey, function() {
+        console.log('Parse initialized successfully.');
+
+        // TODO should I make a channel?
+        window.parsePlugin.subscribe('SampleChannel', function() {
+          console.log('Successfully subscribed to SampleChannel.');
+
+            window.parsePlugin.getInstallationId(function(id) {
+              // TODO maybe send this to eggtimer server so it can notify of events?
+              console.log('Retrieved install id: ' + id);
+
+            }, function(e) {
+              console.log('Failure to retrieve install id.');
+            });
+
+        }, function(e) {
+            console.log('Failed trying to subscribe to SampleChannel.');
+        });
+
+      }, function(e) {
+          console.log('Failure to initialize Parse.');
+      });
+    }
 
     $rootScope.$on('$stateChangeError', function(e, to, toP, from, fromP, error) {
       e.preventDefault();
