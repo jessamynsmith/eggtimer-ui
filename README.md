@@ -22,6 +22,15 @@ Getting started:
     cordova plugin add https://github.com/apache/cordova-plugin-whitelist.git
     cordova plugin add https://github.com/benjie/phonegap-parse-plugin
 
+Export environment variables from your parse.io account:
+
+    EGGTIMER_PARSE_APP_ID=<value_from_parse>
+    EGGTIMER_PARSE_CLIENT_KEY=<value_from_parse>
+    
+If you want push notifications:
+
+   gulp credentials
+
 To run app:
 
     node server.js
