@@ -19,8 +19,8 @@ Getting started:
     npm install
     ionic browser add crosswalk
     ionic platform add browser android ios
-    cordova plugin add https://github.com/apache/cordova-plugin-whitelist.git
-    cordova plugin add https://github.com/benjie/phonegap-parse-plugin
+    ionic plugin add https://github.com/apache/cordova-plugin-whitelist.git
+    ionic plugin add https://github.com/benjie/phonegap-parse-plugin
 
 Export environment variables from your parse.io account:
 
