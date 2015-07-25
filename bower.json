@@ -2,7 +2,7 @@
   "name": "eggtimer",
   "private": "true",
   "dependencies": {
-    "ionic": "v1.0.0-rc.3",
+    "ionic": "v1.0.0",
     "angular-messages": "1.3.13",
     "fullcalendar": "~2.3.1"
   },

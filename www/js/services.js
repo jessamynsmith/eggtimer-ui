@@ -14,7 +14,8 @@ angular.module('eggtimer.services', ['eggtimer.constants'])
         var handleSuccess = function(result) {
           window.localStorage.token = result.data.token;
         };
-        var handleError = function() {
+        var handleError = function(error) {
+          console.log(error);
         };
         var request = $http({
           method: "post",
