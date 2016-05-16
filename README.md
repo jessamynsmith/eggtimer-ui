@@ -31,6 +31,14 @@ If you want push notifications:
 
    gulp credentials
 
+To lint the code:
+
+    node_modules/.bin/jshint www/js
+   
+To run unit tests:
+
+    node_modules/karma/bin/karma start tests/karma.conf.js --single-run
+
 To run app:
 
     node server.js
