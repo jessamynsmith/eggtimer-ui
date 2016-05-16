@@ -29,7 +29,7 @@ Export environment variables from your parse.io account:
     
 If you want push notifications:
 
-   gulp credentials
+    gulp credentials
 
 To lint the code:
 
