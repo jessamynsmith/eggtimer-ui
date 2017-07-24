@@ -23,3 +23,6 @@ $positive:                        #8b0000 !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 
+// Style customizations
+@import "style.scss";
+

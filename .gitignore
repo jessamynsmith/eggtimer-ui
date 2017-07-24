@@ -5,5 +5,6 @@ engine/
 node_modules/
 platforms/
 plugins/
+www/css
 www/lib/
 *coverage*
