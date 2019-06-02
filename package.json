@@ -21,11 +21,11 @@
     "coveralls": "^2.11.2",
     "jasmine-core": "^2.2.0",
     "jshint": "^2.8.0",
-    "karma": "^0.12.31",
-    "karma-chrome-launcher": "^0.1.7",
-    "karma-coverage": "^0.2.7",
-    "karma-coveralls": "^0.1.5",
-    "karma-jasmine": "^0.3.5",
+    "karma": "^2.0.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.2",
+    "karma-coveralls": "^2.0.0",
+    "karma-jasmine": "^2.0.0",
     "karma-phantomjs-launcher": "^1.0.4",
     "shelljs": "^0.3.0"
   },
@@ -35,7 +35,7 @@
     "www/lib"
   ],
   "scripts": {
-    "postinstall": "bower install && gulp constants --env=production && gulp sass"
+    "postinstall": "bower install && node_modules/.bin/gulp constants --env=production && node_modules/.bin/gulp sass"
   },
   "repository": {
     "type": "git",

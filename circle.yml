@@ -1,6 +1,0 @@
----
-test:
-  override:
-    - node_modules/.bin/jshint www/js
-    - node_modules/karma/bin/karma start tests/karma.conf.js --single-run
-    - node_modules/coveralls/bin/coveralls.js < tests/coverage/PhantomJS*/lcov.info
