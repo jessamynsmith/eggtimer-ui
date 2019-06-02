@@ -3,12 +3,6 @@ workflows:
   build-deploy:
     jobs:
       - build
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
 
 version: 2
 jobs:
@@ -35,12 +29,3 @@ jobs:
             node_modules/.bin/jshint www/js
             node_modules/karma/bin/karma start tests/karma.conf.js --single-run
             node_modules/coveralls/bin/coveralls.js < tests/coverage/PhantomJS*/lcov.info
-  deploy:
-    docker:
-      - image: buildpack-deps:trusty
-    steps:
-      - checkout
-      - run:
-          name: Deploy Master to Heroku
-          command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/eggtimer-ui.git master
